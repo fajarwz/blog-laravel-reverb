@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Events\SendMessage;
+use App\Events\UserIsTyping;
 use Laravel\Reverb\Events\MessageReceived;
 
-class ReceiveMessage
+class ReceiveEvent
 {
     /**
      * Create the event listener.
@@ -21,8 +21,8 @@ class ReceiveMessage
     public function handle(MessageReceived $event): void
     {
         $messageEvent = json_decode($event->message);
-        if ($messageEvent->event === 'SendMessage') {
-            SendMessage::dispatch($messageEvent->data->message);
+        if ($messageEvent->event === 'UserIsTyping') {
+            UserIsTyping::dispatch($messageEvent->data->userId);
         }
     }
 }
